@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load humanize %}
+
+{%  block title %}Search Results | {% endblock %}
+
+{% block content %}
+<div class="hero-wrap" style="background-image: url('/static/images/bg_1.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row no-gutters slider-text align-items-center justify-content-center">
+        <div class="col-md-9 ftco-animate text-center">
+          <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'index' %}">Home</a></span> <span>Property</span></p>
+          <h1 class="mb-3 bread">Property</h1>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Searchbar -->
+{% include 'partials/_search.html' %} 
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row">
+          {% if listings %}
+              {% for listing in listings %}
+                  <div class="col-md-4 ftco-animate">
+                      <div class="properties">
+                          <a href="{% url 'listing' listing.slug %}" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url('{{ listing.photo_main.url }}');">
+                              <div class="icon d-flex justify-content-center align-items-center">
+                                  <span class="icon-search2"></span>
+                              </div>
+                          </a>
+                          <div class="text p-3">
+                              <span class="status sale">{{ listing.cat }}</span>
+                              <div class="d-flex">
+                                  <div class="one">
+                                      <h3><a href="{% url 'listing' listing.slug %}">{{ listing.title }}</a></h3>
+                                      <p>{{ listing.category }}</p>
+                                  </div>
+                                  <div class="two">
+                                      <span class="price">Ksh. {{ listing.price | intword | intcomma }}</span>
+                                  </div>
+                              </div>
+                              <p>{{ listing.description }}</p>
+                              <hr>
+                              <p class="bottom-area d-flex">
+                                  <span><i class="flaticon-selection"></i> {{ listing.sqft }}</span>
+                                  <span class="ml-auto"><i class="flaticon-bathtub"></i> {{ listing.bathrooms }}</span>
+                                  <span><i class="flaticon-bed"></i> {{ listing.bedrooms }}</span>
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+
+              {% endfor %}
+
+          {% else %}
+              <div class="col-md-12">
+                  <p>No Property Listings added yet</p>
+              </div>
+          {% endif %}
+        </div>
+      <div class="row mt-5">
+      <div class="col text-center">
+          <div class="block-27">
+              {% if listings.has_other_pages %}
+                  <ul>
+                      {% if listings.has_previous %}
+                      <li><a href="?page={{ listings.previous_page_number }}">&lt;</a></li>
+                      {% else %}
+                      <li class="disabled"><a>&lt;</a></li>
+                      {% endif %}
+                      {% for i in listings.paginator.page_range %}
+                          {% if listings.number == i %}
+                          <li class="active"><a>{{i}}</a></li>
+                          {% else %}
+                          <li><a href="?page={{i}}">{{i}}</a></li>    
+                          {% endif %}
+                      {% endfor %}
+                      {% if listings.has_next %}
+                      <li><a href="?page={{ listings.next_page_number }}">&gt;</a></li>
+                      {% else %}
+                      <li class="disabled"><a>&gt;</a></li>
+                      {% endif %}
+                  </ul>
+              {% endif %}
+          </div>
+      </div>
+      </div>
+    </div>
+</section>
+      
+      <section class="ftco-section-parallax">
+    <div class="parallax-img d-flex align-items-center">
+      <div class="container">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
+            <h2>Subcribe to our Newsletter</h2>
+            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
+            <div class="row d-flex justify-content-center mt-5">
+              <div class="col-md-8">
+                <form action="#" class="subscribe-form">
+                  <div class="form-group d-flex">
+                    <input type="text" class="form-control" placeholder="Enter email address">
+                    <input type="submit" value="Subscribe" class="submit px-3">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

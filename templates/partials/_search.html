@@ -1,0 +1,108 @@
+<section class="ftco-search">
+    <div class="container">
+        <div class="row">
+                <div class="col-md-12 search-wrap">
+                    <h2 class="heading h5 d-flex align-items-center pr-4"><span class="ion-ios-search mr-3"></span> Search Property</h2>
+                    <form action="{% url 'search' %}" class="search-property">
+                <div class="row">
+                    <div class="col-md align-items-end">
+                        <div class="form-group">
+                            <label for="#">Keyword</label>
+                          <div class="form-field">
+                              <div class="icon"><span class="icon-pencil"></span></div>
+                        <input name="keywords" type="text" class="form-control" placeholder="Keyword (Pool, Garage, etc.)" value="{{ values.keywords }}">
+                      </div>
+                  </div>
+                    </div>
+                    <div class="col-md align-items-end">
+                        <div class="form-group">
+                            <label for="#">Location</label>
+                          <div class="form-field">
+                              <div class="icon"><span class="icon-pencil"></span></div>
+                        <input name="town" type="text" class="form-control" placeholder="Town/Estate/Locality" value="{{ values.town }}">
+                      </div>
+                  </div>
+                    </div>
+                    <div class="col-md align-items-end">
+                        <div class="form-group">
+                            <label for="#">County</label>
+                            <div class="form-field">
+                              <div class="select-wrap">
+                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                      <select name="county" id="" class="form-control">
+                        <option value="">County (All)</option>
+                        {% for key,value in county_choices.items %}                          
+                          <option value="{{ key }}"
+                            {% if key == values.county %}
+                              selected
+                            {% endif %}
+                          >
+                            {{ value }}
+                          </option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                      </div>
+                  </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md align-items-end">
+                        <div class="form-group">
+                            <label for="#">Bedrooms</label>
+                            <div class="form-field">
+                              <div class="select-wrap">
+                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                      <select name="bedrooms" id="" class="form-control">
+                          <option value="">Bedrooms (All)</option>
+                          {% for key,value in bedroom_choices.items %}
+                          <option value="{{ key }}"
+                            {% if key == values.bedrooms %}
+                              selected
+                            {% endif %}
+                          >
+                          {{ value }}
+                          </option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                      </div>
+                  </div>
+                    </div>
+                    <div class="col-md align-items-end">
+                        <div class="form-group">
+                            <label for="#">Max Price</label>
+                            <div class="form-field">
+                              <div class="select-wrap">
+                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                      <select name="price" id="" class="form-control">
+                          <option value="">Max Price</option>
+                          {% for key,value in price_choices.items %}
+                          <option value="{{ key }}"
+                            {% if key == values.price %}
+                              selected
+                            {% endif %}
+                          >
+                          {{ value }}
+                          </option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                      </div>
+                  </div>
+                    </div>
+                    
+                    <div class="col-md align-self-end">
+                        <div class="form-group">
+                            <div class="form-field">
+                        <input type="submit" value="Search" class="form-control btn btn-primary">
+                      </div>
+                  </div>
+                    </div>
+                </div>
+            </form>
+                </div>
+        </div>
+    </div>
+</section>
